@@ -1,9 +1,73 @@
-﻿<svg height="250" width=250>
+﻿@using Microsoft.AspNetCore.Components.Routing
+
+<h3>SVG with Callback</h3>
+<svg height="250" width="250" id="svg-with-callback">
     <circle cx="125" cy="125" r=@radius fill="red" stroke="black" stroke-width="3" />
 </svg>
 
 <button @onclick=@(() => { radius *= 2; })>Click me</button>
 
+<h3>SVG with Child Component</h3>
+<svg height="250" width="250" id="svg-with-child-component">
+    <SvgCircleComponent />
+</svg>
+
+<h3>SVG with Foreign Object</h3>
+<svg width="100" height="100" id="svg-with-foreign-object">
+    <foreignObject x="0" y="0" width="100" height="100">
+        <strong>thestringfoo</strong>
+        <strong>@bar</strong>
+    </foreignObject>
+</svg>
+
+<h3>SVG with nested external svg</h3>
+<svg height="250" width=250 id="svg-with-external-nested-svg">
+    <use href="/subdir/images/circle.svg#icon"></use>
+</svg>
+
+<h3>SVG with data reference</h3>
+<svg id="svg-with-data-reference">
+<image href="@("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAB3RJTUUH2AQPDQ0laSi7LQAAAAlwSFlzAAALEgAACxIB0t1+/AAAAARnQU1BAACxjwv8YQUAAALdSURBVHjabVPvS1NRGH7OvfPeuU03M9TEAsmVKIz+gBA0w4SKzWmyRSkk7IPf9U8JKvowwiACi74GQj9QcPghlXKacxk2U8Fwbvfuxz09VzYx6LDDOTvnfZ73ed73XBWVcRMYagcWrgLbG8AK/jNCwEgHkOgCvn87GzMAjEacTuv91JR85PHIIWCMx+Is+D4QiWma9bqvT8Z0XY4CD+1z1c58zuV6NTk9LXx1degOBLC5tBTsKBZTTPHFDiJbxKfrM7f7+4ViWbjU1IRfmUyo3bKS4gZwODU56W3ioXl0BKtYRCmfx2w8joxhjGtA4bymzQz29sI0TRSOj1FiTDGbxezGRkm9AmxuLi8Pd/v9ArwoM8BRKqHr8mXsJJNBl8MRDvX0QJTLkLkcLJILxixubSEr5cSJzzAlNjJLNByGJgREoQAHAbYie69wze/vw+BaoIoESXaA2HPgmWoTfGVF/eVyMr22Fu5ua4OTPh3Uo+7uQqTTUCjXVqWSdJEqdqWMPSWYUEutVnnFJmFR0qlUuNPng0qJGjPW1tRAdzhgUcnHw0NsW1bscQVs45SzrbL/KMyUW12FztWj66h3OuHRNNTYfZUStYDJraxiThXYrWoQYmaArWz2euEmyM3sbpLoqgqN60XGZfL54DUg9bnS4hOCCH/1BPfV1qLR5YKTkll9HNG7Qt91bjcKVFTmWSvjf5pmMECSBZKoQeCeD3h5XdeFl1lqFOXEc57Feru3hxX69lMJeGaQrMj7ZnYqUygE+QTWxV16uqWqWgNl2l5t3wq9zhH427LGncBBqxDv7rS0oEiiYxbTnjnDwJtcrqR28iH9kTJ8wc7MWWQL51j9A4JZ7fg8s9BzYiufj7ZRhcl7gwSfqDALPFDXgGVKSR1IGWqitHkycz/OPser1WbB1gNSJn4YRrSFMR/4Eg+lHHsCvDht4TAQHeG7j5x8eP9+iZUhJoBBTpMzWj38C2dRTZc15mQUAAAAAElFTkSuQmCC")" width="16" height="16" />
+</svg>
+
+<h3>SVG with link</h3>
+<svg id="svg-with-link">
+    <NavLink href="counter" id="navlink-in-svg">
+        <circle cx="100" cy="100" r="10"></circle>
+    </NavLink>
+</svg>
+
+<h3>SVG with input element and two-way binding</h3>
+<svg id="svg-with-two-way-binding">
+    <foreignobject style="overflow:visible">
+        <input @bind="value" @bind:event="oninput" type="number"/> SVG Two way bind
+    </foreignobject>
+</svg>
+<p id="svg-with-two-way-binding-value">@value</p>
+
+
+<h3>SVG with render fragment</h3>
+<svg id="svg-with-render-fragment">
+    <foreignObject width="100" height="100">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div>
+                @rf
+            </div>
+        </div>
+    </foreignObject>
+</svg>
+
+<h3>SVG with scoped CSS</h3>
+<svg id="svg-with-css-scope">
+    <circle cx="125" cy="125" r=@radius stroke-width="3" />
+</svg>
+
 @code {
     int radius = 10;
+    string bar = "thestringbar";
+
+    int value = 10;
+
+    RenderFragment rf = @<text><i>Hello</i></text>;
+
 }
